@@ -1,0 +1,202 @@
+{
+  "$schema": "https://www.krakend.io/schema/v2.13/krakend.json",
+  "version": 3,
+  "name": "KrakenD Demo API Gateway",
+  "port": 8080,
+  "timeout": "3000ms",
+
+  "endpoints": [
+
+    {
+      "endpoint": "/api/users",
+      "method": "GET",
+      "input_headers": [
+        "Authorization",
+        "X-User-Id",
+        "X-Realm-Roles"
+      ],
+      "extra_config": {
+        "qos/ratelimit/router": {
+          "client_max_rate": 2,
+          "client_capacity": 2,
+          "strategy": "ip"
+        },
+        "auth/validator": {
+          "alg": "RS256",
+          "jwk_url": "http://keycloak:8080/realms/krakend-sandbox/protocol/openid-connect/certs",
+          "issuer": "http://localhost:8082/realms/krakend-sandbox",
+          "roles_key": "realm_access.roles",
+          "roles_key_is_nested": true,
+          "roles": [
+            "api-user"
+          ],
+          "cache": true,
+          "disable_jwk_security": true,
+          "propagate_claims": [
+            [
+              "sub",
+              "X-User-Id"
+            ],
+            [
+              "realm_access.roles",
+              "X-Realm-Roles"
+            ]
+          ]
+        }
+      },
+      "backend": [
+        {
+          "url_pattern": "/users.json",
+          "method": "GET",
+          "host": [
+            "http://backend"
+          ]
+        }
+      ]
+    },
+
+    {
+      "endpoint": "/api/posts",
+      "method": "GET",
+      "input_headers": [
+        "Authorization",
+        "X-User-Id",
+        "X-Realm-Roles"
+      ],
+      "extra_config": {
+        "auth/validator": {
+          "alg": "RS256",
+          "jwk_url": "http://keycloak:8080/realms/krakend-sandbox/protocol/openid-connect/certs",
+          "issuer": "http://localhost:8082/realms/krakend-sandbox",
+          "roles_key": "realm_access.roles",
+          "roles_key_is_nested": true,
+          "roles": [
+            "api-user"
+          ],
+          "cache": true,
+          "disable_jwk_security": true,
+          "propagate_claims": [
+            [
+              "sub",
+              "X-User-Id"
+            ],
+            [
+              "realm_access.roles",
+              "X-Realm-Roles"
+            ]
+          ]
+        }
+      },
+      "backend": [
+        {
+          "url_pattern": "/posts.json",
+          "method": "GET",
+          "host": [
+            "http://backend"
+          ]
+        }
+      ]
+    },
+
+    {
+      "endpoint": "/api/products",
+      "method": "GET",
+      "input_headers": [
+        "Authorization",
+        "X-User-Id",
+        "X-Realm-Roles"
+      ],
+      "extra_config": {
+        "auth/validator": {
+          "alg": "RS256",
+          "jwk_url": "http://keycloak:8080/realms/krakend-sandbox/protocol/openid-connect/certs",
+          "issuer": "http://localhost:8082/realms/krakend-sandbox",
+          "roles_key": "realm_access.roles",
+          "roles_key_is_nested": true,
+          "roles": [
+            "api-user"
+          ],
+          "cache": true,
+          "disable_jwk_security": true,
+          "propagate_claims": [
+            [
+              "sub",
+              "X-User-Id"
+            ],
+            [
+              "realm_access.roles",
+              "X-Realm-Roles"
+            ]
+          ]
+        }
+      },
+      "backend": [
+        {
+          "url_pattern": "/products.json",
+          "method": "GET",
+          "host": [
+            "http://backend"
+          ]
+        }
+      ]
+    },
+
+    {
+      "endpoint": "/api/dashboard",
+      "method": "GET",
+      "input_headers": [
+        "Authorization",
+        "X-User-Id",
+        "X-Realm-Roles"
+      ],
+      "extra_config": {
+        "auth/validator": {
+          "alg": "RS256",
+          "jwk_url": "http://keycloak:8080/realms/krakend-sandbox/protocol/openid-connect/certs",
+          "issuer": "http://localhost:8082/realms/krakend-sandbox",
+          "roles_key": "realm_access.roles",
+          "roles_key_is_nested": true,
+          "roles": [
+            "api-user"
+          ],
+          "cache": true,
+          "disable_jwk_security": true,
+          "propagate_claims": [
+            [
+              "sub",
+              "X-User-Id"
+            ],
+            [
+              "realm_access.roles",
+              "X-Realm-Roles"
+            ]
+          ]
+        }
+      },
+      "backend": [
+        {
+          "url_pattern": "/users.json",
+          "method": "GET",
+          "host": [
+            "http://backend"
+          ]
+        },
+        {
+          "url_pattern": "/posts.json",
+          "method": "GET",
+          "host": [
+            "http://backend"
+          ]
+        },
+        {
+          "url_pattern": "/products.json",
+          "method": "GET",
+          "host": [
+            "http://backend"
+          ]
+        }
+      ]
+    }
+
+  ]
+}

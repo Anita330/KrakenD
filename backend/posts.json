@@ -1,0 +1,14 @@
+{
+  "posts": [
+    {
+      "id": 101,
+      "title": "AWS DevOps",
+      "author": "Anita"
+    },
+    {
+      "id": 102,
+      "title": "Kubernetes",
+      "author": "John"
+    }
+  ]
+}

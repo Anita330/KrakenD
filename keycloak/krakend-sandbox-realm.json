@@ -1,0 +1,71 @@
+{
+  "realm": "krakend-sandbox",
+  "enabled": true,
+  "verifyEmail": false,
+  "roles": {
+    "realm": [
+      {
+        "name": "api-user",
+        "description": "Allows access to KrakenD sandbox APIs"
+      }
+    ]
+  },
+  "clients": [
+    {
+      "clientId": "krakend-sandbox-client",
+      "name": "KrakenD Sandbox Client",
+      "enabled": true,
+      "protocol": "openid-connect",
+      "publicClient": true,
+      "standardFlowEnabled": true,
+      "directAccessGrantsEnabled": true,
+      "serviceAccountsEnabled": false,
+      "redirectUris": [
+        "*"
+      ],
+      "webOrigins": [
+        "*"
+      ]
+    }
+  ],
+  "users": [
+    {
+      "username": "sandbox-user",
+      "enabled": true,
+      "emailVerified": false,
+      "email": "sandbox-user@example.local",
+      "firstName": "Sandbox",
+      "lastName": "User",
+      "requiredActions": [],
+      "credentials": [
+        {
+          "type": "password",
+          "value": "sandbox-password",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "api-user"
+      ]
+    },
+    {
+      "username": "anita-kar",
+      "enabled": true,
+      "emailVerified": false,
+      "email": "anita-kar@example.local",
+      "firstName": "Anita",
+      "lastName": "Kar",
+      "requiredActions": [],
+      "credentials": [
+        {
+          "type": "password",
+          "value": "password123",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "api-user"
+      ]
+    }
+  ]
+}
